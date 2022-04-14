@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CharController : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class CharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(playerHealth <= 0 ){
+           StartCoroutine(Death());
+
+        }
+        
         healthBar.value = playerHealth;
         grounded = controller.isGrounded;
         if (grounded && playerSpeed < 0)
@@ -29,7 +35,7 @@ public class CharController : MonoBehaviour
            playerVelocity.y = 0;
         }
 
-        Vector3 movechar = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical"));
+        Vector3 movechar = new Vector3(Input.GetAxis("Horizontal"),0,Input.GetAxis("Vertical")).normalized;
         controller.Move(movechar * playerSpeed * Time.deltaTime);
         animator.SetFloat("Speed", movechar.magnitude);
         if (movechar != Vector3.zero)
@@ -79,5 +85,13 @@ public class CharController : MonoBehaviour
         animator.SetBool("Rifle_Equip", true);
     }
 
+
+    IEnumerator Death()
+    {
+        animator.SetTrigger("Death");
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+    }
 
 }
