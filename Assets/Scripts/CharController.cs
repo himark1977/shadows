@@ -6,14 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class CharController : MonoBehaviour
 {
-    public CharacterController controller;
+    // Character Movement
+    public CharacterController controller;  
     public Animator animator;
     private Vector3 playerVelocity;
     private bool grounded;
     public float playerSpeed =2f;
     private float gravity = -9.81f;
+    //Player Health
     public int playerHealth;
     public Slider healthBar;
+    //Spawn Bullet TODO See function DestroyBullet
+    public Rigidbody bullet;
+    public Transform spawnPoint;
     void Start()
     {
         controller = gameObject.GetComponent<CharacterController>();
@@ -25,7 +30,6 @@ public class CharController : MonoBehaviour
     {
         if(playerHealth <= 0 ){
            StartCoroutine(Death());
-
         }
         
         healthBar.value = playerHealth;
@@ -55,7 +59,7 @@ public class CharController : MonoBehaviour
         {
             if(animator.GetBool("Rifle_Equip") == false)
             {
-                RifleEquip();
+                animator.SetBool("Rifle_Equip", true);
             } else{
                 animator.SetBool("Rifle_Equip", false);
             }
@@ -66,32 +70,27 @@ public class CharController : MonoBehaviour
         {
             playerHealth -= 10;
         }
-    
-    
-    
     }
-
 
     void Attack() {
         if(animator.GetBool("Rifle_Equip") == true)
             {
                 Debug.Log("Rifle Attack");
-            } else {
+
+            Rigidbody bulletInstance;
+            bulletInstance = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation) as Rigidbody; // This is where I don't understand why?!?!
+            bulletInstance.AddForce(spawnPoint.forward * 1000f);
+
+        } else {
                 animator.SetTrigger("attack");
             }
     }
 
-    void RifleEquip(){
-        animator.SetBool("Rifle_Equip", true);
-    }
-
-
-    IEnumerator Death()
+ IEnumerator Death()
     {
         animator.SetTrigger("Death");
         yield return new WaitForSeconds(5);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
     }
 
 }
