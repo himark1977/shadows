@@ -13,8 +13,12 @@ public class CharController : MonoBehaviour
     private bool grounded;
     public float playerSpeed =2f;
     private float gravity = -9.81f;
-    //Player Health
+    //Player Stats
     public int playerHealth;
+    public int ammo;
+    public int maxAmmo;
+    public int damage;
+    // UI
     public Slider healthBar;
     //Spawn Bullet TODO See function DestroyBullet
     public Rigidbody bullet;
@@ -23,6 +27,8 @@ public class CharController : MonoBehaviour
     {
         controller = gameObject.GetComponent<CharacterController>();
         playerHealth = 100;
+        ammo = 30;
+        maxAmmo = 90;
     }
 
     // Update is called once per frame
@@ -31,8 +37,9 @@ public class CharController : MonoBehaviour
         if(playerHealth <= 0 ){
            StartCoroutine(Death());
         }
-        
+        //Add to UI
         healthBar.value = playerHealth;
+        
         grounded = controller.isGrounded;
         if (grounded && playerSpeed < 0)
         {
@@ -75,12 +82,23 @@ public class CharController : MonoBehaviour
     void Attack() {
         if(animator.GetBool("Rifle_Equip") == true)
             {
-                Debug.Log("Rifle Attack");
-
-            Rigidbody bulletInstance;
-            bulletInstance = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation) as Rigidbody; // This is where I don't understand why?!?!
-            bulletInstance.AddForce(spawnPoint.forward * 1000f);
-
+            if (ammo == 0)
+            {
+                ammo = 30; // minim ammo
+                maxAmmo = maxAmmo - 30; // Ammo - 30
+            }
+            if (maxAmmo == 0) 
+            {
+                Debug.Log("Dang!"); // replace with sound
+                animator.SetBool("Rifle_Equip", false);
+            }
+            else
+            {
+                ammo--;
+                Rigidbody bulletInstance;
+                bulletInstance = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation) as Rigidbody; // This is where I don't understand why?!?!
+                bulletInstance.AddForce(spawnPoint.forward * 1000f);
+            }
         } else {
                 animator.SetTrigger("attack");
             }

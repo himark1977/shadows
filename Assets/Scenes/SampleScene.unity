@@ -900,7 +900,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1217,10 +1217,25 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: dcfa643d6d0fddc45a3f29baa02f03a4, type: 2}
     - target: {fileID: 6492155999012957987, guid: 8445b65f59e19b844aa1468931c1f143,
         type: 3}
+      propertyPath: ammo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6492155999012957987, guid: 8445b65f59e19b844aa1468931c1f143,
+        type: 3}
       propertyPath: bullet
       value: 
       objectReference: {fileID: 6475778377685527627, guid: e1d1b6b29930ec5439b9bb9e0bb9f8a7,
         type: 3}
+    - target: {fileID: 6492155999012957987, guid: 8445b65f59e19b844aa1468931c1f143,
+        type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6492155999012957987, guid: 8445b65f59e19b844aa1468931c1f143,
+        type: 3}
+      propertyPath: maxAmmo
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6492155999012957987, guid: 8445b65f59e19b844aa1468931c1f143,
         type: 3}
       propertyPath: healthBar
@@ -1231,6 +1246,16 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 1175975103}
+    - target: {fileID: 6492155999012957987, guid: 8445b65f59e19b844aa1468931c1f143,
+        type: 3}
+      propertyPath: playerSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6492155999012957987, guid: 8445b65f59e19b844aa1468931c1f143,
+        type: 3}
+      propertyPath: playerHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 6492155999012957990, guid: 8445b65f59e19b844aa1468931c1f143,
         type: 3}
       propertyPath: m_Name
