@@ -97,7 +97,7 @@ public class CharController : MonoBehaviour
                 ammo--;
                 Rigidbody bulletInstance;
                 bulletInstance = Instantiate(bullet, spawnPoint.position, spawnPoint.rotation) as Rigidbody; // This is where I don't understand why?!?!
-                bulletInstance.AddForce(spawnPoint.forward * 1000f);
+                bulletInstance.AddForce(spawnPoint.forward * 300f);
             }
         } else {
                 animator.SetTrigger("attack");
